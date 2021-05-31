@@ -17,6 +17,7 @@
     "react-bootstrap": "^1.4.0",
     "react-confirm-alert": "^2.6.2",
     "react-dom": "^16.13.1",
+    "react-idle-timer": "^4.6.4",
     "react-polling": "^1.0.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",

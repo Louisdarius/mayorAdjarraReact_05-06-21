@@ -12,22 +12,26 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 export default function ViewUers(props) {
   const [users, setUsers] = useState([]);
   const [userRole, setUserRole] = useState({});
-  const [filter, setFilter] = useState(props.location.URLSearchParams);
+  //const [filter, setFilter] = useState(props.location.URLSearchParams);
+  const [filter, setFilter] = useState('');
+  const [status, setStatus] = useState('');
+  const [gender, setGender] = useState('');
 
   useEffect(() => {
-    async function getData() {
-      const filter = props.location.search;
-      viewUsers(filter)
-        .then((response) => {
-          setUsers(response.data.users);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
     getData();
     getProfile();
   }, [props.location.search]);
+
+  async function getData() {
+    const filter = props.location.search;
+    viewUsers(filter)
+      .then((response) => {
+        setUsers(response.data.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   async function getProfile() {
     viewUserProfile()
@@ -40,8 +44,10 @@ export default function ViewUers(props) {
   }
 
   function handleSubmit(values) {
-    props.history.push(`/users?filter=${values.filter}`);
-    window.location.reload();
+    props.history.push(
+      `/users?filter=${values.filter}&status=${values.status}&gender=${values.gender}&ujeugeuhegghghrghrrhrurhruogjeheengeuge`
+    );
+    getData();
   }
 
   async function deleteData(id) {
@@ -54,7 +60,8 @@ export default function ViewUers(props) {
           onClick: () => {
             deleteUser(id)
               .then((response) => {
-                window.location.reload();
+                getData();
+                // window.location.reload();
               })
               .catch((error) => {
                 console.log(error);
@@ -89,43 +96,69 @@ export default function ViewUers(props) {
                 <div className="card">
                   <div className="card-header">
                     <div className="row">
-                      <div className="col-4">
+                      <div className="col-3">
                         <Link to="/user/register" className="btn btn-info mr-2">
                           Add New User
                         </Link>
                       </div>
-                      <div className="col-8 search-side">
+                      <div className="col-9 search-side">
                         <Formik
                           onSubmit={handleSubmit}
                           initialValues={{
                             filter: filter || '',
+                            status: status || '',
+                            gender: gender || '',
                           }}
                           enableReinitialize={true}
                         >
-                          <Form className="searchForm">
-                            <input
-                              type="text"
-                              name="filter"
-                              id="filter"
-                              placeholder="Search patient..."
-                              className="input"
-                              value={filter}
-                              onChange={(e) => setFilter(e.target.value)}
-                            />
-                            <button className="submit" type="submit">
-                              Search
-                            </button>
+                          {({ submitForm }) => (
+                            <Form className="searchForm">
+                              <select
+                                className="input"
+                                name="status"
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value)}
+                                onChangeCapture={submitForm}
+                              >
+                                <option value="">Select status</option>
+                                <option value="actif">Actif</option>
+                                <option value="inactif">Inactif</option>
+                              </select>
+                              <select
+                                className="input"
+                                name="gender"
+                                value={gender}
+                                onChange={(e) => setGender(e.target.value)}
+                                onChangeCapture={submitForm}
+                              >
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Femalle">Femalle</option>
+                              </select>
+                              <input
+                                type="text"
+                                name="filter"
+                                id="filter"
+                                placeholder="Search user..."
+                                className="input"
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                              />
+                              <button className="submit" type="submit">
+                                Search
+                              </button>
 
-                            <Link
-                              className="clear"
-                              to="/users"
-                              onClick={() => {
-                                window.location.href = `users`;
-                              }}
-                            >
-                              Clear Filter
-                            </Link>
-                          </Form>
+                              <Link
+                                className="clear"
+                                to="/users"
+                                onClick={() => {
+                                  window.location.href = `/users`;
+                                }}
+                              >
+                                Clear Filter
+                              </Link>
+                            </Form>
+                          )}
                         </Formik>
                       </div>
                     </div>
@@ -159,7 +192,7 @@ export default function ViewUers(props) {
                             <td>{user.tel}</td>
                             <td>{user.role.name}</td>
                             <td>{user.status}</td>
-                            <td>
+                            <td className="col-span">
                               <Link
                                 className="btn btn-primary mr-2"
                                 to={`/user/${user._id}/edit`}
@@ -169,7 +202,7 @@ export default function ViewUers(props) {
                             </td>
                             {userRole === '6027daf9b6edc45418dff4db' ? (
                               <>
-                                <td>
+                                <td className="col-span">
                                   <button
                                     type="button"
                                     onClick={() => deleteData(user._id)}
@@ -178,7 +211,7 @@ export default function ViewUers(props) {
                                     Delete
                                   </button>
                                 </td>
-                                <td>
+                                <td className="col-span">
                                   <Link
                                     className="btn btn-info mr-2"
                                     to={`/user/userpasswordchange/${user._id}/passwordchange`}

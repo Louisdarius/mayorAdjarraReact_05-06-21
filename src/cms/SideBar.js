@@ -82,15 +82,14 @@ export default function SideBar() {
                       <p>Feedback list</p>
                     </NavLink>
                   </li>
+                  <li className="nav-item bashvoard-nav">
+                    <NavLink to="/preferences" className="nav-link">
+                      <i className="nav-icon fas fa-th-list" />
+                      <p>Preferences</p>
+                    </NavLink>
+                  </li>
                 </>
               ) : null}
-
-              <li className="nav-item bashvoard-nav">
-                <NavLink to="/preferences" className="nav-link">
-                  <i className="nav-icon fas fa-th-list" />
-                  <p>Preferences</p>
-                </NavLink>
-              </li>
 
               <li className="nav-item bashvoard-nav">
                 <NavLink to="/news" className="nav-link">

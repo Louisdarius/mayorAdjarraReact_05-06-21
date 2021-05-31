@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HeroSection from '../../components/HeroSection';
 import '../../App.css';
 
 function Home() {
   return (
     <>
+      <HeroSection />
       <div className="main_container services">
         <div className="container">
           <div className="row first-top">

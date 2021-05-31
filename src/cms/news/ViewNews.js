@@ -34,7 +34,8 @@ export default function ViewUers(props) {
           onClick: () => {
             deleteNews(id)
               .then((response) => {
-                window.location.reload();
+                getData();
+                // window.location.reload();
               })
               .catch((error) => {
                 console.log(error);
@@ -106,7 +107,7 @@ export default function ViewUers(props) {
                             <td>{detail.title}</td>
                             <td>{detail.subTitle}</td>
                             <td>{detail.content.substring(0, 50)}...</td>
-                            <td>
+                            <td className="col-span">
                               <Link
                                 className="btn btn-info mr-2"
                                 to={`/new/view/${detail._id}`}
@@ -114,7 +115,7 @@ export default function ViewUers(props) {
                                 View
                               </Link>
                             </td>
-                            <td>
+                            <td className="col-span">
                               <Link
                                 className="btn btn-primary mr-2"
                                 to={`/new/${detail._id}/edit`}
@@ -122,7 +123,7 @@ export default function ViewUers(props) {
                                 Edit
                               </Link>
                             </td>
-                            <td>
+                            <td className="col-span">
                               <button
                                 type="button"
                                 className="btn btn-danger mr-2 disabled-lin"

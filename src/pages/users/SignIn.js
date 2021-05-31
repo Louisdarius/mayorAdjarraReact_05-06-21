@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../../services/usersServives';
+import TopSection from '../../components/TopSection';
 
 function SignIn(props) {
   const [password, setPassword] = useState('');
@@ -43,19 +44,26 @@ function SignIn(props) {
     login(email, password)
       .then((user) => {
         console.log(user);
-        props.history.push('/');
-        window.location.reload();
+        if (user.data.user.role._id == '603d56db678b700b6482baf4') {
+          localStorage.clear();
+          setErrorMessager('You have no access to this page');
+        } else {
+          props.history.push('/');
+          window.location.reload();
+        }
       })
       .catch((error) => {
         console.log(error);
-        //if (error.response) {
-        //  setErrorMessager(error.response.data.error);
+        setErrorMessager('incorrect email or password');
+        // if (error.response) {
+        //   setErrorMessager(error.response.data.error);
         // }
       });
   }
 
   return (
     <>
+      <TopSection heading="Sign in" />
       <div className="contact">
         <div className="container">
           <div className="row justify-content-center sign-in-box">

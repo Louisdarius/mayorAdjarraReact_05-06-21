@@ -67,7 +67,7 @@ function FeedbackList() {
               {feedbackList.map((detail) => (
                 <tr key={detail._id}>
                   <td>{detail.name}</td>
-                  <td>
+                  <td className="col-span">
                     <Link
                       className="btn btn-primary mr-2"
                       to={{ pathname: `/feedbacklist/${detail._id}/edit` }}
@@ -78,7 +78,7 @@ function FeedbackList() {
                       Edit
                     </Link>{' '}
                   </td>
-                  <td>
+                  <td className="col-span">
                     <button
                       type="button"
                       onClick={() => deleteData(detail._id)}

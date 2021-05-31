@@ -251,16 +251,31 @@ export default function AddUser(props) {
                     </div>
                   </div>
 
-                  <div className="card-header">
-                    <h3 className="card-title">
-                      <Link
-                        to="#"
-                        onClick={() => handleSubmit()}
-                        className="btn btn-info mr-2"
-                      >
-                        Add New Record
-                      </Link>
-                    </h3>
+                  <div className="card-header col-12">
+                    <div className="row">
+                      <div className="col-6">
+                        <h3 className="card-title">
+                          <Link
+                            to="#"
+                            onClick={() => handleSubmit()}
+                            className="btn btn-info mr-2"
+                          >
+                            Add new record
+                          </Link>
+                        </h3>
+                      </div>
+                      <div className="col-6 goBack">
+                        <h3 className="card-title">
+                          <Link
+                            to="#"
+                            onClick={() => props.history.goBack()}
+                            className="btn btn-info mr-2"
+                          >
+                            Back
+                          </Link>
+                        </h3>
+                      </div>
+                    </div>
                   </div>
                   {/* /.card-body */}
                 </div>

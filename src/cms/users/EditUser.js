@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { updateUsers, viewEachUser } from '../../services/usersServives';
+import {
+  updateUsers,
+  viewEachUser,
+  viewUserProfile,
+} from '../../services/usersServives';
 import { viewRoles } from '../../services/rolesServives';
 
 export default function EditUser(props) {
@@ -16,6 +20,7 @@ export default function EditUser(props) {
   const [lastNameError, setLastNameError] = useState('');
   const [telError, setTelError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [user, setUsers] = useState({});
 
   useEffect(() => {
     async function getEach() {
@@ -34,6 +39,7 @@ export default function EditUser(props) {
     }
     getEach();
     getRoles();
+    getUserProfile();
   }, [props.match.params.id]);
 
   async function handleSubmit(event) {
@@ -96,6 +102,18 @@ export default function EditUser(props) {
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  async function getUserProfile() {
+    viewUserProfile()
+      .then((response) => {
+        setUsers(response.data.user.role._id);
+      })
+      .catch((error) => {
+        console.log(error);
+        localStorage.clear();
+        window.location.reload();
       });
   }
 
@@ -177,22 +195,25 @@ export default function EditUser(props) {
                           <p className="errorMessage"> {telError}</p>
                         ) : null}
                       </div>
-                      <div className="col-md-6 col-12 form-group">
-                        <label>
-                          Email<i className="required-detail">*</i>
-                        </label>
-                        <input
-                          className="form-control"
-                          type="text"
-                          name={email}
-                          placeholder="Email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {emailError ? (
-                          <p className="errorMessage"> {emailError}</p>
-                        ) : null}
-                      </div>
+                      {user == '6027daf9b6edc45418dff4db' && (
+                        <div className="col-md-6 col-12 form-group">
+                          <label>
+                            Email<i className="required-detail">*</i>
+                          </label>
+                          <input
+                            className="form-control"
+                            type="text"
+                            name={email}
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                          {emailError ? (
+                            <p className="errorMessage"> {emailError}</p>
+                          ) : null}
+                        </div>
+                      )}
+
                       <div className="col-md-6 col-12 form-group">
                         <label>
                           Gender<i className="required-detail">*</i>
@@ -221,37 +242,54 @@ export default function EditUser(props) {
                           <option value="inactif">Inactif</option>
                         </select>
                       </div>
-                      <div className="col-md-6 col-12 form-group">
-                        <label>
-                          Role<i className="required-detail">*</i>
-                        </label>
-                        <select
-                          className="form-control"
-                          name={role}
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                        >
-                          <option value={role._id}>{role.name}</option>
-                          {roles.map((detail) => (
-                            <option key={detail._id} value={detail._id}>
-                              {detail.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      {user == '6027daf9b6edc45418dff4db' && (
+                        <div className="col-md-6 col-12 form-group">
+                          <label>
+                            Role<i className="required-detail">*</i>
+                          </label>
+                          <select
+                            className="form-control"
+                            name={role}
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                          >
+                            <option value={role._id}>{role.name}</option>
+                            {roles.map((detail) => (
+                              <option key={detail._id} value={detail._id}>
+                                {detail.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className="card-header">
-                    <h3 className="card-title">
-                      <Link
-                        to="#"
-                        onClick={() => handleSubmit()}
-                        className="btn btn-info mr-2"
-                      >
-                        Update Record
-                      </Link>
-                    </h3>
+                    <div className="row">
+                      <div className="col-6">
+                        <h3 className="card-title">
+                          <Link
+                            to="#"
+                            onClick={() => handleSubmit()}
+                            className="btn btn-info mr-2"
+                          >
+                            Update Record
+                          </Link>
+                        </h3>
+                      </div>
+                      <div className="col-6 goBack">
+                        <h3 className="card-title">
+                          <Link
+                            to="#"
+                            onClick={() => props.history.goBack()}
+                            className="btn btn-info mr-2"
+                          >
+                            Back
+                          </Link>
+                        </h3>
+                      </div>
+                    </div>
                   </div>
                   {/* /.card-body */}
                 </div>

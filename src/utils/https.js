@@ -1,8 +1,8 @@
 const axios = require('axios');
-const { baseURL } = require('../config/config');
 const { getToken, getUser } = require('./token');
 const timeout = 1000;
 const token = getToken();
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 const request = axios.create({
   baseURL,

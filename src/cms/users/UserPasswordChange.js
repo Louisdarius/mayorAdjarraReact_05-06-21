@@ -111,16 +111,32 @@ export default function ChangePassword(props) {
                             ) : null}
                           </div>
                         </div>
+
                         <div className="col-12">
-                          <h3 className="card-title">
-                            <Link
-                              to="#"
-                              onClick={() => handleSubmit()}
-                              className="btn btn-info mr-2"
-                            >
-                              Change password
-                            </Link>
-                          </h3>
+                          <div className="row">
+                            <div className="col-6">
+                              <h3 className="card-title">
+                                <Link
+                                  to="#"
+                                  onClick={() => handleSubmit()}
+                                  className="btn btn-info mr-2"
+                                >
+                                  Change password
+                                </Link>
+                              </h3>
+                            </div>
+                            <div className="col-6 goBack">
+                              <h3 className="card-title">
+                                <Link
+                                  to="#"
+                                  onClick={() => props.history.goBack()}
+                                  className="btn btn-info mr-2"
+                                >
+                                  Back
+                                </Link>
+                              </h3>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

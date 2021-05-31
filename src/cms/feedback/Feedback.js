@@ -150,7 +150,7 @@ function Feedback(props) {
                             <td>{detail.usage}</td>
                             <td>{detail.status}</td>
                             <td>{detail.message.substring(0, 50)} ...</td>
-                            <td>
+                            <td className="col-span">
                               <Link
                                 className="btn btn-info mr-2"
                                 to={`/feedback/view/${detail._id}`}
@@ -158,7 +158,7 @@ function Feedback(props) {
                                 View
                               </Link>
                             </td>
-                            <td>
+                            <td className="col-span">
                               <Link
                                 className="btn btn-primary mr-2"
                                 to={`/feedback/${detail._id}/edit`}
@@ -166,7 +166,7 @@ function Feedback(props) {
                                 Edit
                               </Link>
                             </td>
-                            <td>
+                            <td className="col-span">
                               <button
                                 type="button"
                                 onClick={() => deleteData(detail._id)}

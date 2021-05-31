@@ -41,10 +41,13 @@ import ViewEachNews from './cms/news/ViewEachNews';
 import AppRoute from './components/AppRoute';
 import FrontendLayout from './components/FrontendLayout';
 import DashboardLayout from './components/DashboardLayout';
+import PageNotFound from './components/PageNotFound';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-function App(props) {
+function App() {
+  let value = localStorage.getItem('user');
+
   useEffect(() => {
     Aos.init({});
   }, []);
@@ -54,133 +57,144 @@ function App(props) {
       <Router>
         <Switch>
           <AppRoute exact path="/" layout={FrontendLayout} component={Home} />
-          <Route path="/sign-in" component={SignIn} />
-
+          {/* <Route path="/sign-in" component={SignIn} /> */}
           <AppRoute
-            path="/dashboard"
-            layout={DashboardLayout}
-            component={Dashboard}
+            path="/sign-in"
+            layout={FrontendLayout}
+            component={SignIn}
           />
-          <AppRoute
-            path="/roles"
-            layout={DashboardLayout}
-            component={AddRole}
-          />
-          <AppRoute
-            path="/role/:id/edit"
-            layout={DashboardLayout}
-            component={EditRole}
-          />
-          <AppRoute
-            path="/feedbacklists"
-            layout={DashboardLayout}
-            component={AddFeedbackList}
-          />
-          <AppRoute
-            path="/feedbacklist/:id/edit"
-            layout={DashboardLayout}
-            component={EditFeedbackList}
-          />
-          <AppRoute
-            path="/feedbacks"
-            layout={DashboardLayout}
-            component={Feedback}
-          />
-          <AppRoute
-            path="/feedback/:id/edit"
-            layout={DashboardLayout}
-            component={EditFeedback}
-          />
-          <AppRoute
-            path="/feedback/view/:id"
-            layout={DashboardLayout}
-            component={ViewEachFeedback}
-          />
-          <AppRoute
-            path="/new/add"
-            layout={DashboardLayout}
-            component={AddNews}
-          />
-          <AppRoute
-            path="/news"
-            layout={DashboardLayout}
-            component={ViewNews}
-          />
-          <AppRoute
-            path="/new/:id/edit"
-            layout={DashboardLayout}
-            component={EditNews}
-          />
-          <AppRoute
-            path="/new/view/:id"
-            layout={DashboardLayout}
-            component={ViewEachNews}
-          />
-          <AppRoute
-            path="/preferences"
-            layout={DashboardLayout}
-            component={AddPreference}
-          />
-          <AppRoute
-            path="/preference/:id/edit"
-            layout={DashboardLayout}
-            component={EditPreference}
-          />
-          <AppRoute
-            path="/users"
-            layout={DashboardLayout}
-            component={ViewUsers}
-          />
-          <AppRoute
-            path="/user/register"
-            layout={DashboardLayout}
-            component={AddUers}
-          />
-          <AppRoute
-            path="/user/:id/edit"
-            layout={DashboardLayout}
-            component={EditUser}
-          />
-          <AppRoute
-            path="/user/profile"
-            layout={DashboardLayout}
-            component={EditUserProfile}
-          />
-          <AppRoute
-            path="/user/image"
-            layout={DashboardLayout}
-            component={ProfileImage}
-          />
-          <AppRoute
-            path="/user/changepassword"
-            layout={DashboardLayout}
-            component={ChangePassword}
-          />
-          <AppRoute
-            path="/user/userpasswordchange/:id/passwordchange"
-            layout={DashboardLayout}
-            component={UserPasswordChange}
-          />
-          <AppRoute
-            path="/appointments"
-            layout={DashboardLayout}
-            component={ViewAppointments}
-          />
-          <AppRoute
-            path="/appointment/add"
-            layout={DashboardLayout}
-            component={AddAppointment}
-          />
-          <AppRoute
-            path="/appointment/view/:id"
-            layout={DashboardLayout}
-            component={ViewEachAppointment}
-          />
-          <AppRoute
-            path="/appointment/:id/edit"
-            layout={DashboardLayout}
-            component={EditAppointment}
-          />
+          {value &&
+            (JSON.parse(value).role._id == '6027daf9b6edc45418dff4db' ||
+              JSON.parse(value).role._id == '6027df2ab306664888a7f86d') && (
+              <Switch>
+                <AppRoute
+                  path="/dashboard"
+                  layout={DashboardLayout}
+                  component={Dashboard}
+                />
+                <AppRoute
+                  path="/roles"
+                  layout={DashboardLayout}
+                  component={AddRole}
+                />
+                <AppRoute
+                  path="/role/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditRole}
+                />
+                <AppRoute
+                  path="/feedbacklists"
+                  layout={DashboardLayout}
+                  component={AddFeedbackList}
+                />
+                <AppRoute
+                  path="/feedbacklist/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditFeedbackList}
+                />
+                <AppRoute
+                  path="/feedbacks"
+                  layout={DashboardLayout}
+                  component={Feedback}
+                />
+                <AppRoute
+                  path="/feedback/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditFeedback}
+                />
+                <AppRoute
+                  path="/feedback/view/:id"
+                  layout={DashboardLayout}
+                  component={ViewEachFeedback}
+                />
+                <AppRoute
+                  path="/new/add"
+                  layout={DashboardLayout}
+                  component={AddNews}
+                />
+                <AppRoute
+                  path="/news"
+                  layout={DashboardLayout}
+                  component={ViewNews}
+                />
+                <AppRoute
+                  path="/new/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditNews}
+                />
+                <AppRoute
+                  path="/new/view/:id"
+                  layout={DashboardLayout}
+                  component={ViewEachNews}
+                />
+                <AppRoute
+                  path="/preferences"
+                  layout={DashboardLayout}
+                  component={AddPreference}
+                />
+                <AppRoute
+                  path="/preference/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditPreference}
+                />
+                <AppRoute
+                  path="/users"
+                  layout={DashboardLayout}
+                  component={ViewUsers}
+                />
+                <AppRoute
+                  path="/user/register"
+                  layout={DashboardLayout}
+                  component={AddUers}
+                />
+                <AppRoute
+                  path="/user/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditUser}
+                />
+                <AppRoute
+                  path="/user/profile"
+                  layout={DashboardLayout}
+                  component={EditUserProfile}
+                />
+                <AppRoute
+                  path="/user/image"
+                  layout={DashboardLayout}
+                  component={ProfileImage}
+                />
+                <AppRoute
+                  path="/user/changepassword"
+                  layout={DashboardLayout}
+                  component={ChangePassword}
+                />
+                <AppRoute
+                  path="/user/userpasswordchange/:id/passwordchange"
+                  layout={DashboardLayout}
+                  component={UserPasswordChange}
+                />
+                <AppRoute
+                  path="/appointments"
+                  layout={DashboardLayout}
+                  component={ViewAppointments}
+                />
+                <AppRoute
+                  path="/appointment/add"
+                  layout={DashboardLayout}
+                  component={AddAppointment}
+                />
+                <AppRoute
+                  path="/appointment/view/:id"
+                  layout={DashboardLayout}
+                  component={ViewEachAppointment}
+                />
+                <AppRoute
+                  path="/appointment/:id/edit"
+                  layout={DashboardLayout}
+                  component={EditAppointment}
+                />
+              </Switch>
+            )}
+          <AppRoute layout={FrontendLayout} component={PageNotFound} />
         </Switch>
       </Router>
     </>
