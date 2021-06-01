@@ -36,7 +36,21 @@ export default function EditUser(props) {
   }, [props.match.params.id]);
 
   async function handleSubmit() {
-    if (
+    if (status == 'pending' || status == 'disapproved') {
+      if (date || time) {
+        if (date) {
+          setDateError('date not require');
+        }
+        if (time) {
+          setTimeError('time not require');
+        }
+        return null;
+      }
+
+      setDateError();
+      setTimeError();
+      editData();
+    } else if (
       date === '' ||
       time === '' ||
       time === undefined ||

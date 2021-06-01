@@ -91,7 +91,9 @@ export default function EditUser(props) {
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.data.error) {
+          setEmailError(error.response.data.error);
+        }
       });
   }
 
