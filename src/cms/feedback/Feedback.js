@@ -14,7 +14,7 @@ function Feedback(props) {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [props.location.search]);
 
   async function getAll() {
     const filter = props.location.search;
@@ -29,7 +29,7 @@ function Feedback(props) {
 
   function handleSubmit(values) {
     props.history.push(`/feedbacks?status=${values.status}`);
-    window.location.reload();
+    getAll();
   }
 
   async function deleteData(id) {
@@ -86,33 +86,32 @@ function Feedback(props) {
                           }}
                           enableReinitialize={true}
                         >
-                          <Form className="searchForm">
-                            <select
-                              className="input"
-                              name="status"
-                              value={status}
-                              onChange={(e) => setStatus(e.target.value)}
-                            >
-                              <option value="">All</option>
-                              <option value="pending">pending</option>
-                              <option value="disapproved">disapproved</option>
-                              <option value="approved">approved</option>
-                            </select>
+                          {({ submitForm }) => (
+                            <Form className="searchForm">
+                              <select
+                                className="input"
+                                name="status"
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value)}
+                                onChangeCapture={submitForm}
+                              >
+                                <option value="">All</option>
+                                <option value="pending">pending</option>
+                                <option value="disapproved">disapproved</option>
+                                <option value="approved">approved</option>
+                              </select>
 
-                            <button className="submit submitEsp" type="submit">
-                              Search
-                            </button>
-
-                            <Link
-                              className="clear"
-                              to="/feedbacks"
-                              onClick={() => {
-                                window.location.href = `feedbacks`;
-                              }}
-                            >
-                              Clear Filter
-                            </Link>
-                          </Form>
+                              <Link
+                                className="clear"
+                                to="/feedbacks"
+                                onClick={() => {
+                                  window.location.href = `/feedbacks`;
+                                }}
+                              >
+                                Clear Filter
+                              </Link>
+                            </Form>
+                          )}
                         </Formik>
                       </div>
                     </div>
